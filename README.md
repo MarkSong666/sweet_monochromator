@@ -19,6 +19,8 @@ project/
 |   ├── spec_blackbody.csv      # 模拟黑体光源
 |   ├── spec_source.csv         # 实验室光源
 |   └── spec_uniform.csv        # 模拟均匀光源
+├── regression 
+|    └── regression.py
 ├── figure/                # 图表输出目录（存放最终版光谱图）
 ├── stimulation/           
 │   └── spec_simu.py       # 单色仪程序模拟
