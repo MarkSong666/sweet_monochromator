@@ -12,7 +12,7 @@
 - project/
 - ├── data/                  
 - ├── regression 
-- |    └── regression.py
+- │    └── regression.py
 - ├── figure/                # 图表输出目录（存放最终版光谱图）
 - ├── stimulation/           
 - │   └── spec_simu.py       # 单色仪程序模拟
