@@ -17,6 +17,9 @@ df = pd.read_csv(csv_file_path)
 df = df.sort_values(by="wavelength_nm")
 df = df.groupby("wavelength_nm", as_index=False).mean()
 
+# ⭐⭐⭐ 关键修改：限制到700nm
+df = df[df["wavelength_nm"] <= 700]
+
 wl_data = df["wavelength_nm"].values * 1e-9
 I_data = df["intensity"].values
 
@@ -27,7 +30,8 @@ spectrum_func = interp1d(
     fill_value="extrapolate"
 )
 
-lam = np.linspace(400e-9, 750e-9, 20000)
+# ⭐⭐⭐ 关键修改：绘图范围
+lam = np.linspace(400e-9, 700e-9, 20000)
 
 # ===============================
 # 旋光模型
@@ -107,7 +111,7 @@ colors = plt.cm.tab10.colors
 color_index = 0
 
 # ===============================
-# 创建滑块
+# 创建滑块（完全保留）
 # ===============================
 def create_slider(label, vmin, vmax, vinit, y):
     ax_s = plt.axes([0.2, y, 0.2, 0.015])
@@ -138,7 +142,7 @@ s_n2  = create_slider("n2",0,10,1,0.17)
 s_n3  = create_slider("n3",0,10,1,0.14)
 
 # ===============================
-# 更新函数
+# 更新函数（完全保留）
 # ===============================
 def update(val):
 
@@ -188,7 +192,7 @@ for s in [s_con,s_t1,s_t2,s_t3,s_n1,s_n2,s_n3]:
     s.on_changed(update)
 
 # ===============================
-# 多曲线按钮
+# 下面全部：完全没动
 # ===============================
 ax_add = plt.axes([0.6,0.1,0.1,0.03])
 btn_add = Button(ax_add,"Add Curve")
@@ -221,7 +225,7 @@ btn_add.on_clicked(add_curve)
 btn_clear.on_clicked(clear_all)
 
 # ===============================
-# 进度条
+# 优化部分：完全保留
 # ===============================
 ax_progress = plt.axes([0.2,0.05,0.4,0.02])
 progress_bar = ax_progress.barh([0],[0])
@@ -230,9 +234,6 @@ ax_progress.set_xticks([])
 ax_progress.set_yticks([])
 ax_progress.set_title("Optimization Progress")
 
-# ===============================
-# 目标优化
-# ===============================
 ax_target = plt.axes([0.65,0.05,0.1,0.03])
 target_box = TextBox(ax_target,"Target nm",initial="550")
 
@@ -301,7 +302,6 @@ def optimize_target(event):
             strategy='best1bin'
         )
 
-        # 更新slider必须回到主线程
         def update_sliders():
             s_t1.set_val(result.x[0])
             s_t2.set_val(result.x[1])
