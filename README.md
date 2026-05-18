@@ -13,10 +13,11 @@
 - ├── data/                  
 - ├── regression 
 - │    └── regression.py
+- |    └── README_regression.md
 - ├── figure/                # 图表输出目录（存放最终版光谱图）
 - ├── stimulation/           
 - │   └── spec_simu.py       # 单色仪程序模拟
-- │   └── README_regression.md
+- │   
 - ├── README.md              # 项目说明文档（本文档）
 - └── .gitignore             # Git 忽略文件配置
 
