@@ -288,7 +288,7 @@ def optimize_target(event):
             progress_bar[0].set_width(progress)
             fig.canvas.draw_idle()
 
-        bounds=[(0,360),(0,360),(0,360),(0,10),(0,10)]
+        bounds=[(0,360),(0,360),(0,0),(0,2),(0,0)]
 
         result = differential_evolution(
             objective,
